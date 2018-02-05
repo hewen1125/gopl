@@ -414,8 +414,16 @@ func (c *conn) run() {
 }
 
 func main() {
+	var h bool
 	var port int
+	flag.BoolVar(&h, "h", false, "print this help message and exit")
 	flag.IntVar(&port, "port", 8000, "listen port")
+	flag.Parse()
+
+	if h {
+		flag.Usage()
+		return
+	}
 
 	ln, err := net.Listen("tcp4", fmt.Sprintf(":%d", port))
 	if err != nil {
